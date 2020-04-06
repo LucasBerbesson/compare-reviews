@@ -7,8 +7,7 @@
   <meta name="author" content="fabdev">
   <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
   <title>Compare reviews</title>
-  <meta name="description" content="Compare e-commerce reviews thanks to Laplace" />
-
+  <meta name="description" content="Compare e-commerce reviews thanks to Laplace"/>
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" rel="stylesheet">
   <link href="kartik-star-rating/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css"/>
   <style>
@@ -41,14 +40,23 @@
     }
     
     .best {
-      border: 3px solid #82E0AA !important;
+      border: 3px solid #337ab7 !important;
     }
     
+    .best::after {
+      content: "BEST OPTION";
+      position: absolute;
+      color: #337ab7;
+      font-weight: 600;
+      left: 0;
+      bottom: -20px;
+    }
     
     #review1, #review2 {
       background: #fff;
       padding: 5px 10px;
-      margin: auto;
+      margin:auto;
+      margin-bottom: 10px;
       width: 260px;
       cursor: pointer;
       position: relative;
@@ -58,13 +66,17 @@
     }
     
     .badge-primary {
-      background-color: #0066c0
+      background-color: #337ab7
     }
     
     input {
       text-align: center;
       padding: 0;
       width: 50px;
+    }
+    
+    #calculate {
+      margin-top:15px;
     }
     
     footer {
@@ -89,11 +101,16 @@
     <input id="rate2">
     out of <input id="nb2" type="text" value="10"/> total reviews
   </div>
+  <div class="text-center">
+    <button class="btn btn-primary btn-sm" id="calculate">Calculate</button>
+  </div>
 </div>
 <footer>
+  <small>Made by <a href="https://fabdev.fr">fabdev</a> -
   <a href="https://www.youtube.com/watch?v=8idr1WZ1A7Q">
-    <small>Explanations</small>
+    Explanations
   </a>
+    </small>
 </footer>
 <script src="./jquery.js"></script>
 <script src="./bootstrap.min.js"></script>
@@ -123,7 +140,7 @@
     }
 
 
-    $("#nb1,#nb2").on('keyup', function () {
+    $("#calculate").on('click', function () {
       compute()
     })
 
@@ -144,16 +161,6 @@
           }
         }
     )
-
-
-    $('#rate1').on('rating:change', function (event, value, caption) {
-      compute(value, null)
-    });
-    $('#rate2').on('rating:change', function (event, value, caption) {
-      compute(null, value)
-    });
-
-
   });
 </script>
 </body>
