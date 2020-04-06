@@ -54,29 +54,27 @@
     
     #review1, #review2 {
       background: #fff;
-      padding: 5px 10px;
-      margin:auto;
+      margin: auto;
       margin-bottom: 10px;
-      width: 260px;
-      cursor: pointer;
+      width: 480px;
       position: relative;
       text-align: left;
       font-size: 12px;
       display: block;
     }
     
-    .badge-primary {
-      background-color: #337ab7
+    .rate-tooltip {
+      color: #337ab7;
+      background: transparent !important;
     }
     
     input {
-      text-align: center;
       padding: 0;
-      width: 50px;
+      max-width: 100px !important;
     }
     
     #calculate {
-      margin-top:15px;
+      margin-top: 15px;
     }
     
     footer {
@@ -84,22 +82,50 @@
       bottom: 10px;
       right: 10px;
     }
+    
+    #title {
+      max-width:480px;
+      margin:20px auto;
+      
+    }
   </style>
 </head>
 <body>
 <div class="form-compare">
-  <h3 class="text-center">
+  <h3 class="text-center" id="title">
     Compare reviews <br>
-    <small>Enter reviews to know which is best</small>
+    <small >If you can't decide between a product with a few good ratings and another product with a lot of inferior ratings, this little tool is for you.</small>
   </h3>
-  <div id="review1" data-toggle="modal" data-target="#review1-modal">
-    <input id="rate1">
-    out of <input id="nb1" type="text" value="260"/> total reviews
+  <div id="review1" class="row panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Product 1</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-7">
+        <label for="">Average rating</label>
+        <input id="rate1"/>
+      </div>
+      <div class="col-md-5">
+        <label for="">Number of reviews</label>
+        <input id="nb1" type="text" value="260" class="form-control"/>
+      </div>
+    </div>
   </div>
   <br>
-  <div id="review2" data-toggle="modal" data-target="#review2-modal">
-    <input id="rate2">
-    out of <input id="nb2" type="text" value="10"/> total reviews
+  <div id="review2" class="row panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Product 2</h3>
+    </div>
+    <div class="panel-body">
+      <div class="col-md-7">
+        <label for="">Average rating</label>
+        <input id="rate2"/>
+      </div>
+      <div class="col-md-5">
+        <label for="">Number of reviews</label>
+        <input id="nb2" type="text" value="260" class="form-control"/>
+      </div>
+    </div>
   </div>
   <div class="text-center">
     <button class="btn btn-primary btn-sm" id="calculate">Calculate</button>
@@ -107,10 +133,10 @@
 </div>
 <footer>
   <small>Made by <a href="https://fabdev.fr">fabdev</a> -
-  <a href="https://www.youtube.com/watch?v=8idr1WZ1A7Q">
-    Explanations
-  </a>
-    </small>
+    <a href="https://www.youtube.com/watch?v=8idr1WZ1A7Q">
+      Explanations
+    </a>
+  </small>
 </footer>
 <script src="./jquery.js"></script>
 <script src="./bootstrap.min.js"></script>
@@ -157,7 +183,7 @@
             return val
           },
           starCaptionClasses: function (val) {
-            return 'badge badge-primary'
+            return 'rate-tooltip'
           }
         }
     )
