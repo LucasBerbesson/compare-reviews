@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+  <title>Compare reviews</title>
+  <link rel="stylesheet" href="./bootstrap.min.css">
+  <link rel="stylesheet" href="./jquery.rateyo.min.css">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+    
+    body {
+      display: -ms-flexbox;
+      display: -webkit-box;
+      display: flex;
+      -ms-flex-align: center;
+      -ms-flex-pack: center;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      justify-content: center;
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f0f2f5;
+    }
+    
+    .form-compare {
+      width: 100%;
+      padding: 15px;
+      margin: 0 auto;
+      border-radius: 4px;
+      position: relative;
+    }
+    
+    #review1, #review2 {
+      background: #fff;
+      padding: 5px 10px;
+      margin: 15px 5px;
+      cursor: pointer;
+      position: relative;
+      font-size:12px;
+      display: inline-block;
+    }
+    
+    @media screen and (max-width: 640px) {
+      #review1, #review2 {
+        display: block;
+        width: 100%;
+      }
+    }
+    
+    #rate1, #rate2 {
+      display: inline-block;
+      position: relative;
+      top: 4px;
+      padding: 0;
+      z-index: 2;
+      cursor: pointer;
+      
+    }
+    
+    .rate-tooltip {
+      z-index: 1;
+      font-size: 13px;
+      color: #0066c0;
+      margin:0 5px;
+    }
+    
+    input {
+      text-align: center;
+      padding: 0;
+      width: 50px;
+    }
+    
+    #result {
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="form-compare">
+  <p class="text-center lead">
+    Is
+    <a id="review1" data-toggle="modal" data-target="#review1-modal">
+      <span id="rate1"></span>
+      <span class="rate-tooltip">4.6</span>
+      out of <input id="nb1" type="text" value="260"/>  total reviews
+    </a> better than
+    <a id="review2" data-toggle="modal" data-target="#review2-modal">
+      <span id="rate2"></span>
+      <span class="rate-tooltip">5</span>
+      out of <input id="nb2" type="text" value="10"/>  total reviews
+    </a>?
+  </p>
+  <p class="text-center font-weight-bold lead" id="result">
+    "yes"
+  </p>
+</div>
+<script src="./jquery-3.2.1.slim.min.js"></script>
+<script src="./bootstrap.min.js"></script>
+<script src="./jquery.rateyo.min.js"></script>
+<script>
+  $(function () {
+
+
+    var compute = function (rate1, rate2) {
+      var nb1 = Number($("#nb1").val());
+      var nb2 = Number($("#nb2").val());
+      var rate1 = rate1 || $("#rate1").rateYo("rating");
+      var rate2 = rate2 || $("#rate2").rateYo("rating");
+      var grade1 = (nb1 * rate1 + 5) / (nb1 + 2);
+      var grade2 = (nb2 * rate2 + 5) / (nb2 + 2);
+      console.log(grade1,grade2)
+      if (grade1 > grade2) {
+        $("#result").text("Yes")
+      } else if (grade1 < grade2) {
+        $("#result").text("No")
+      } else {
+        $("#result").text("They are equivalent")
+      }
+
+    }
+
+
+    $("#nb1,#nb2").on('keyup', function () {
+      compute()
+    })
+
+    $("#rate1").rateYo({
+      rating: 4.6,
+      starWidth: "25px",
+      spacing: "5px",
+      onChange: function (rating, rateYoInstance) {
+        $(this).next().text(rating);
+        compute(rating, null);
+      },
+    });
+    $("#rate2").rateYo({
+      rating: 5,
+      starWidth: "25px",
+      spacing: "5px",
+      onChange: function (rating, rateYoInstance) {
+        $(this).next().text(rating);
+        compute(null, rating);
+      },
+    });
+    compute();
+
+  });
+</script>
+</body>
+</html>
